@@ -71,3 +71,6 @@ Note also the different licenses of thirdparty submodules.
 
 Some improvements are ported back from the fork
 [granite](https://github.com/DLR-RM/granite) (MIT license).
+
+## Credits
+Thanks to [Moses](https://github.com/slitcch) for the idea for the name Pebble.
