@@ -3,9 +3,12 @@ For more information see https://gitlab.com/VladyslavUsenko/basalt
 
 ### Warning: This project is targeted to people who experimented with the original basalt. The code is given as is. I won't fix your issues, but I do answer your questions.
 
+### Please note that this is a WIP (work in progress).
+
 This project is a stripped down version of basalt. The goal is to have a deployable version of the basalt vio system, without any quality of life features. The idea is that you develop, test, and calibrate your system with the main basalt project, and then run this code on the target architecture. The goal is to have only those parts in pebble, that are crucial to have online slam working. In that sense, the offline slam system may or may not be broken.
 
-Dependencies:
+## Dependencies
+
 * eigen
 * tbb
 * basalt_headers
@@ -13,7 +16,14 @@ Dependencies:
 * opencv (might be possible to remove)
 * cereal (might be possible to remove)
 
-Dependencies to test the code:
+For OpenCV, basalt can do offline and online slam. 
+For offline slam, it depends on:
+* cv::imread and cv::IMREAD_UNCHANGED
+
+For online slam it depends on:
+* cv::MAT; cv::Point2f; cv::KeyPoint; cv::FAST
+
+Dependencies to test the code with a Intel T265 camera:
 * librealsense2 (https://robots.uc3m.es/installation-guides/install-realsense2.html)
 
 Directories that were removed (to understand this, please compare the directory structure to the basalt project linked above):
