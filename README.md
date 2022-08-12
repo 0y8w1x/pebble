@@ -1,52 +1,43 @@
-[![pipeline status](https://gitlab.com/VladyslavUsenko/basalt/badges/master/pipeline.svg)](https://gitlab.com/VladyslavUsenko/basalt/commits/master)
+## Pebble
+For more information see https://gitlab.com/VladyslavUsenko/basalt
 
-## Basalt
-For more information see https://vision.in.tum.de/research/vslam/basalt
+### Warning: This project is targeted to people who experimented with the original basalt. The code is given as is. I won't fix your issues, but I do answer your questions.
 
-![teaser](doc/img/teaser.png)
+This project is a stripped down version of basalt. The goal is to have a deployable version of the basalt vio system, without any quality of life features. The idea is that you develop, test, and calibrate your system with the main basalt project, and then run this code on the target architecture. The goal is to have only those parts in pebble, that are crucial to have online slam working. In that sense, the offline slam system may or may not be broken.
 
-This project contains tools for:
-* Camera, IMU and motion capture calibration.
-* Visual-inertial odometry and mapping.
-* Simulated environment to test different components of the system.
+Dependencies:
+* eigen
+* tbb
+* basalt_headers
+* sophus
+* opencv (might be possible to remove)
+* cereal (might be possible to remove)
 
-Some reusable components of the system are available as a separate [header-only library](https://gitlab.com/VladyslavUsenko/basalt-headers) ([Documentation](https://vladyslavusenko.gitlab.io/basalt-headers/)).
+Dependencies to test the code:
+* librealsense2 (https://robots.uc3m.es/installation-guides/install-realsense2.html)
 
-There is also a [Github mirror](https://github.com/VladyslavUsenko/basalt-mirror) of this project to enable easy forking.
+Directories that were removed (to understand this, please compare the directory structure to the basalt project linked above):
+* test
+* doc
+* docker
+* calibration
 
-## Related Publications
-Visual-Inertial Odometry and Mapping:
-* **Visual-Inertial Mapping with Non-Linear Factor Recovery**, V. Usenko, N. Demmel, D. Schubert, J. Stückler, D. Cremers, In IEEE Robotics and Automation Letters (RA-L) [[DOI:10.1109/LRA.2019.2961227]](https://doi.org/10.1109/LRA.2019.2961227) [[arXiv:1904.06504]](https://arxiv.org/abs/1904.06504).
-
-Calibration (explains implemented camera models):
-* **The Double Sphere Camera Model**, V. Usenko and N. Demmel and D. Cremers, In 2018 International Conference on 3D Vision (3DV), [[DOI:10.1109/3DV.2018.00069]](https://doi.org/10.1109/3DV.2018.00069), [[arXiv:1807.08957]](https://arxiv.org/abs/1807.08957).
-
-Calibration (demonstrates how these tools can be used for dataset calibration):
-* **The TUM VI Benchmark for Evaluating Visual-Inertial Odometry**, D. Schubert, T. Goll,  N. Demmel, V. Usenko, J. Stückler, D. Cremers, In 2018 International Conference on Intelligent Robots and Systems (IROS), [[DOI:10.1109/IROS.2018.8593419]](https://doi.org/10.1109/IROS.2018.8593419), [[arXiv:1804.06120]](https://arxiv.org/abs/1804.06120).
-
-Calibration (describes B-spline trajectory representation used in camera-IMU calibration):
-* **Efficient Derivative Computation for Cumulative B-Splines on Lie Groups**, C. Sommer, V. Usenko, D. Schubert, N. Demmel, D. Cremers, In 2020 Conference on Computer Vision and Pattern Recognition (CVPR), [[DOI:10.1109/CVPR42600.2020.01116]](https://doi.org/10.1109/CVPR42600.2020.01116), [[arXiv:1911.08860]](https://arxiv.org/abs/1911.08860).
-
-Optimization (describes square-root optimization and marginalization used in VIO/VO):
-* **Square Root Marginalization for Sliding-Window Bundle Adjustment**, N. Demmel, D. Schubert, C. Sommer, D. Cremers, V. Usenko, In 2021 International Conference on Computer Vision (ICCV), [[arXiv:2109.02182]](https://arxiv.org/abs/2109.02182)
+Dependencies that were removed (again, to understand this please get familiar with the original project):
+* pangolin
+* ros
+* apriltag
+* opengv
+* fmt
+* cli11
+* magic_enum
 
 
 ## Installation
-### APT installation for Ubuntu 20.04 and 18.04 (Fast)
-Set up keys, add the repository to the sources list, update the Ubuntu package index and install Basalt:
+### Source installation for Ubuntu 20.04 (the machine I'm testing on). Other platforms might work aswell.testing on.
+Clone the source code for the project and build it.
 ```
-sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0AD9A3000D97B6C9
-sudo sh -c 'echo "deb [arch=amd64] http://packages.usenko.eu/ubuntu $(lsb_release -sc) $(lsb_release -sc)/main" > /etc/apt/sources.list.d/basalt.list'
-sudo apt-get update
-sudo apt-get dist-upgrade
-sudo apt-get install basalt
-```
-
-### Source installation for Ubuntu >= 18.04 and MacOS >= 10.14 Mojave
-Clone the source code for the project and build it. For MacOS you should have [Homebrew](https://brew.sh/) installed.
-```
-git clone --recursive https://gitlab.com/VladyslavUsenko/basalt.git
-cd basalt
+git clone --recursive https://github.com/0y8w1x/pebble.git
+cd pebble
 ./scripts/install_deps.sh
 mkdir build
 cd build
@@ -54,18 +45,10 @@ cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo
 make -j8
 ```
 
-## Usage
-* [Camera, IMU and Mocap calibration. (TUM-VI, Euroc, UZH-FPV and Kalibr datasets)](doc/Calibration.md)
-* [Visual-inertial odometry and mapping. (TUM-VI and Euroc datasets)](doc/VioMapping.md)
-* [Visual odometry (no IMU). (KITTI dataset)](doc/Vo.md)
-* [Simulation tools to test different components of the system.](doc/Simulation.md)
-* [Batch evaluation tutorial (ICCV'21 experiments)](doc/BatchEvaluation.md)
+## Testing
+I tested the online slam system with a T265 camera by Intel. I've modified the original rs_t265_vio.cpp file to be as minimal as possible. That way it's easy to see what new cameras need to implement.
 
-## Device support
-* [Tutorial on Camera-IMU and Motion capture calibration with Realsense T265.](doc/Realsense.md)
-
-## Development
-* [Development environment setup.](doc/DevSetup.md)
+Some other cameras might be implemented in the future.
 
 ## Licence
 The code is provided under a BSD 3-clause license. See the LICENSE file for details.
