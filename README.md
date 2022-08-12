@@ -52,13 +52,18 @@ cd pebble
 mkdir build
 cd build
 cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo
-make -j8
+make
 ```
 
 ## Testing
 I tested the online slam system with a T265 camera by Intel. I've modified the original rs_t265_vio.cpp file to be as minimal as possible. That way it's easy to see what new cameras need to implement.
 
 Some other cameras might be implemented in the future.
+
+For this to be succesful you need to have the librealsense2 library installed.
+```
+./basalt_rs_t265_vio
+```
 
 ## Licence
 The code is provided under a BSD 3-clause license. See the LICENSE file for details.
