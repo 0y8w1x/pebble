@@ -195,7 +195,7 @@ class SqrtKeypointVoEstimator : public VioEstimatorBase,
     return T_w_i_init.template cast<double>();
   }
 
-  void debug_finalize() override;
+  // void debug_finalize() override;
 
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 

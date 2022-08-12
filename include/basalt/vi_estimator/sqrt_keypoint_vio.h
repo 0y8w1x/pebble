@@ -127,7 +127,7 @@ class SqrtKeypointVioEstimator : public VioEstimatorBase,
                    const std::unordered_set<KeypointId>& lost_landmaks);
   void optimize();
 
-  void debug_finalize() override;
+  // void debug_finalize() override;
 
   void logMargNullspace();
   Eigen::VectorXd checkMargNullspace() const;

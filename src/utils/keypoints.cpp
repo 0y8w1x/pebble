@@ -39,14 +39,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <opencv2/features2d/features2d.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
-
+/*
 #include <opengv/relative_pose/CentralRelativeAdapter.hpp>
 #include <opengv/relative_pose/methods.hpp>
 #include <opengv/sac/Ransac.hpp>
-
+*/
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunused-parameter"
-#include <opengv/sac_problems/relative_pose/CentralRelativePoseSacProblem.hpp>
+//#include <opengv/sac_problems/relative_pose/CentralRelativePoseSacProblem.hpp>
 #pragma GCC diagnostic pop
 
 namespace basalt {
@@ -358,7 +358,7 @@ void matchDescriptors(const std::vector<std::bitset<256>>& corner_descriptors_1,
     }
   }
 }
-
+/*
 void findInliersRansac(const KeypointsData& kd1, const KeypointsData& kd2,
                        const double ransac_thresh, const int ransac_min_inliers,
                        MatchData& md) {
@@ -424,5 +424,5 @@ void findInliersRansac(const KeypointsData& kd1, const KeypointsData& kd2,
       md.inliers.emplace_back(md.matches[ransac.inliers_[i]]);
   }
 }
-
+*/
 }  // namespace basalt

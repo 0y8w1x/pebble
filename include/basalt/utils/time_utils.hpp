@@ -125,13 +125,13 @@ class ExecutionStats {
   Meta& add(const std::string& name, const Eigen::VectorXd& value);
   Meta& add(const std::string& name, const Eigen::VectorXf& value);
 
-  void merge_all(const ExecutionStats& other);
+  // void merge_all(const ExecutionStats& other);
 
-  void merge_sums(const ExecutionStats& other);
+  // void merge_sums(const ExecutionStats& other);
 
-  void print() const;
+  // void print() const;
 
-  bool save_json(const std::string& path) const;
+  // bool save_json(const std::string& path) const;
 
  private:
   std::unordered_map<std::string, Meta> stats_;

@@ -109,7 +109,7 @@ class VioEstimatorBase {
     }
   }
 
-  virtual inline void debug_finalize() {}
+  // virtual inline void debug_finalize() {}
 
   virtual Sophus::SE3d getT_w_i_init() = 0;
 

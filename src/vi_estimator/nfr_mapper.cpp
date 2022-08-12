@@ -551,7 +551,7 @@ void NfrMapper::match_stereo() {
             << num_inliers << " inlier matches (" << num_matches << " total)."
             << std::endl;
 }
-
+/*
 void NfrMapper::match_all() {
   std::vector<TimeCamId> keys;
   std::unordered_map<TimeCamId, size_t> id_to_key_idx;
@@ -667,7 +667,7 @@ void NfrMapper::match_all() {
             << "s. Geometric verification attemts: " << total_matched << "."
             << std::endl;
 }
-
+*/
 void NfrMapper::build_tracks() {
   TrackBuilder trackBuilder;
   // Build: Efficient fusion of correspondences

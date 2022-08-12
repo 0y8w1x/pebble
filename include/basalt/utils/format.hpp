@@ -34,8 +34,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 #pragma once
 
-#include <fmt/format.h>
-#include <fmt/ostream.h>
+// FMT DEPENDENCY = BAD
+//#include <fmt/format.h>
+//#include <fmt/ostream.h>
 
 namespace basalt {
 
@@ -45,17 +46,18 @@ namespace basalt {
 
 namespace literals {
 
-inline auto operator"" _format(const char* s, size_t n) {
-  return [=](auto&&... args) {
-#if FMT_VERSION < 50000
-    return fmt::format(s, args...);
-#elif FMT_VERSION < 80100
-    return fmt::format(std::string_view(s, n), args...);
-#else
-    return fmt::format(fmt::runtime(std::string_view(s, n)), args...);
-#endif
-  };
-}
+// FMT DEPENDENCY = BAD
+// inline auto operator"" _format(const char* s, size_t n) {
+//   return [=](auto&&... args) {
+// #if FMT_VERSION < 50000
+//     return fmt::format(s, args...);
+// #elif FMT_VERSION < 80100
+//     return fmt::format(std::string_view(s, n), args...);
+// #else
+//     return fmt::format(fmt::runtime(std::string_view(s, n)), args...);
+// #endif
+//   };
+// }
 
 }  // namespace literals
 

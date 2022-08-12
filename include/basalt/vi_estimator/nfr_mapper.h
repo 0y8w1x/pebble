@@ -181,7 +181,7 @@ class NfrMapper : public ScBundleAdjustmentBase<double> {
   // Feature matching and inlier filtering for stereo pairs with known pose
   void match_stereo();
 
-  void match_all();
+  //void match_all();
 
   void build_tracks();
 

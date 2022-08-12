@@ -40,7 +40,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <cereal/archives/json.hpp>
 #include <cereal/cereal.hpp>
-#include <magic_enum.hpp>
+// #include <magic_enum.hpp>
 
 namespace basalt {
 
@@ -132,30 +132,30 @@ void VioConfig::load(const std::string& filename) {
 
 namespace cereal {
 
-template <class Archive>
-std::string save_minimal(const Archive& ar,
-                         const basalt::LinearizationType& linearization_type) {
-  UNUSED(ar);
-  auto name = magic_enum::enum_name(linearization_type);
-  return std::string(name);
-}
+// template <class Archive>
+// std::string save_minimal(const Archive& ar,
+//                          const basalt::LinearizationType& linearization_type) {
+//   UNUSED(ar);
+//   auto name = magic_enum::enum_name(linearization_type);
+//   return std::string(name);
+// }
 
-template <class Archive>
-void load_minimal(const Archive& ar,
-                  basalt::LinearizationType& linearization_type,
-                  const std::string& name) {
-  UNUSED(ar);
+// template <class Archive>
+// void load_minimal(const Archive& ar,
+//                   basalt::LinearizationType& linearization_type,
+//                   const std::string& name) {
+//   UNUSED(ar);
 
-  auto lin_enum = magic_enum::enum_cast<basalt::LinearizationType>(name);
+//   auto lin_enum = magic_enum::enum_cast<basalt::LinearizationType>(name);
 
-  if (lin_enum.has_value()) {
-    linearization_type = lin_enum.value();
-  } else {
-    std::cerr << "Could not find the LinearizationType for " << name
-              << std::endl;
-    std::abort();
-  }
-}
+//   if (lin_enum.has_value()) {
+//     linearization_type = lin_enum.value();
+//   } else {
+//     std::cerr << "Could not find the LinearizationType for " << name
+//               << std::endl;
+//     std::abort();
+//   }
+// }
 
 template <class Archive>
 void serialize(Archive& ar, basalt::VioConfig& config) {

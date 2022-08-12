@@ -40,7 +40,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <basalt/utils/assert.h>
 #include <basalt/utils/system_utils.h>
 #include <basalt/utils/cast_utils.hpp>
-#include <basalt/utils/format.hpp>
 #include <basalt/utils/time_utils.hpp>
 
 #include <basalt/linearization/linearization_base.hpp>
@@ -48,8 +47,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <tbb/blocked_range.h>
 #include <tbb/parallel_for.h>
 #include <tbb/parallel_reduce.h>
-
-#include <fmt/format.h>
 
 #include <chrono>
 
@@ -986,7 +983,7 @@ void SqrtKeypointVoEstimator<Scalar_>::optimize() {
   }
 
   bool terminated = false;
-  bool converged = false;
+  // bool converged = false;
   std::string message;
 
   int it = 0;
@@ -1185,12 +1182,13 @@ void SqrtKeypointVoEstimator<Scalar_>::optimize() {
 
         relative_decrease = f_diff / l_diff;
 
-        if (config.vio_debug) {
-          std::cout << "\t[EVAL] error: {:.4e}, f_diff {:.4e} l_diff {:.4e} "
-                       "step_quality {:.2e} step_size {:.2e}\n"_format(
-                           after_error_total, f_diff, l_diff, relative_decrease,
-                           step_norminf);
-        }
+        // FMT DEPENDENCY = BAD
+        // if (config.vio_debug) {
+        //   std::cout << "\t[EVAL] error: {:.4e}, f_diff {:.4e} l_diff {:.4e} "
+        //                "step_quality {:.2e} step_size {:.2e}\n"_format(
+        //                    after_error_total, f_diff, l_diff, relative_decrease,
+        //                    step_norminf);
+        // }
 
         // TODO: consider to remove assert. For now we want to test if we even
         // run into the l_diff <= 0 case ever in practice
@@ -1206,7 +1204,7 @@ void SqrtKeypointVoEstimator<Scalar_>::optimize() {
       }
 
       double iteration_time = timer_iteration.elapsed();
-      double cumulative_time = timer_total.elapsed();
+      // double cumulative_time = timer_total.elapsed();
 
       stats.add("iteration", iteration_time).format("ms");
       {
@@ -1220,15 +1218,16 @@ void SqrtKeypointVoEstimator<Scalar_>::optimize() {
       if (step_is_successful) {
         BASALT_ASSERT(step_is_valid);
 
-        if (config.vio_debug) {
-          //          std::cout << "\t[ACCEPTED] lambda:" << lambda
-          //                    << " Error: " << after_error_total << std::endl;
+        // FMT DEPENDENCY = BAD
+        // if (config.vio_debug) {
+        //   //          std::cout << "\t[ACCEPTED] lambda:" << lambda
+        //   //                    << " Error: " << after_error_total << std::endl;
 
-          std::cout << "\t[ACCEPTED] error: {:.4e}, lambda: {:.1e}, it_time: "
-                       "{:.3f}s, total_time: {:.3f}s\n"
-                       ""_format(after_error_total, lambda, iteration_time,
-                                 cumulative_time);
-        }
+        //   std::cout << "\t[ACCEPTED] error: {:.4e}, lambda: {:.1e}, it_time: "
+        //                "{:.3f}s, total_time: {:.3f}s\n"
+        //                ""_format(after_error_total, lambda, iteration_time,
+        //                          cumulative_time);
+        // }
 
         lambda *= std::max<Scalar>(
             Scalar(1.0) / 3,
@@ -1242,7 +1241,7 @@ void SqrtKeypointVoEstimator<Scalar_>::optimize() {
         // check function and parameter tolerance
         if ((f_diff > 0 && f_diff < Scalar(1e-6)) ||
             step_norminf < Scalar(1e-4)) {
-          converged = true;
+          // converged = true;
           terminated = true;
         }
 
@@ -1251,15 +1250,16 @@ void SqrtKeypointVoEstimator<Scalar_>::optimize() {
       } else {
         std::string reason = step_is_valid ? "REJECTED" : "INVALID";
 
-        if (config.vio_debug) {
-          //          std::cout << "\t[REJECTED] lambda:" << lambda
-          //                    << " Error: " << after_error_total << std::endl;
+        // FMT DEPENDENCY = BAD
+        // if (config.vio_debug) {
+        //   //          std::cout << "\t[REJECTED] lambda:" << lambda
+        //   //                    << " Error: " << after_error_total << std::endl;
 
-          std::cout << "\t[{}] error: {}, lambda: {:.1e}, it_time:"
-                       "{:.3f}s, total_time: {:.3f}s\n"
-                       ""_format(reason, after_error_total, lambda,
-                                 iteration_time, cumulative_time);
-        }
+        //   std::cout << "\t[{}] error: {}, lambda: {:.1e}, it_time:"
+        //                "{:.3f}s, total_time: {:.3f}s\n"
+        //                ""_format(reason, after_error_total, lambda,
+        //                          iteration_time, cumulative_time);
+        // }
 
         lambda = lambda_vee * lambda;
         lambda_vee *= vee_factor;
@@ -1286,25 +1286,26 @@ void SqrtKeypointVoEstimator<Scalar_>::optimize() {
 
   // TODO: call filterOutliers at least once (also for CG version)
 
-  stats_all_.merge_all(stats);
-  stats_sums_.merge_sums(stats);
+  // stats_all_.merge_all(stats);
+  // stats_sums_.merge_sums(stats);
 
-  if (config.vio_debug) {
-    if (!converged) {
-      if (terminated) {
-        std::cout << "Solver terminated early after {} iterations: {}"_format(
-            it, message);
-      } else {
-        std::cout
-            << "Solver did not converge after maximum number of {} iterations"_format(
-                   it);
-      }
-    }
+  // FMT DEPENDENCY = BAD
+  // if (config.vio_debug) {
+  //   if (!converged) {
+  //     if (terminated) {
+  //       std::cout << "Solver terminated early after {} iterations: {}"_format(
+  //           it, message);
+  //     } else {
+  //       std::cout
+  //           << "Solver did not converge after maximum number of {} iterations"_format(
+  //                  it);
+  //     }
+  //   }
 
-    stats.print();
+  //   stats.print();
 
-    std::cout << "=================================" << std::endl;
-  }
+  //   std::cout << "=================================" << std::endl;
+  // }
 }
 
 template <class Scalar_>
@@ -1315,17 +1316,18 @@ void SqrtKeypointVoEstimator<Scalar_>::optimize_and_marg(
   marginalize(num_points_connected, lost_landmaks);
 }
 
-template <class Scalar_>
-void SqrtKeypointVoEstimator<Scalar_>::debug_finalize() {
-  std::cout << "=== stats all ===\n";
-  stats_all_.print();
-  std::cout << "=== stats sums ===\n";
-  stats_sums_.print();
+// FMT DEPENDENCY = BAD
+// template <class Scalar_>
+// void SqrtKeypointVoEstimator<Scalar_>::debug_finalize() {
+//   std::cout << "=== stats all ===\n";
+//   stats_all_.print();
+//   std::cout << "=== stats sums ===\n";
+//   stats_sums_.print();
 
-  // save files
-  stats_all_.save_json("stats_all.json");
-  stats_sums_.save_json("stats_sums.json");
-}
+//   save files
+//   stats_all_.save_json("stats_all.json");
+//   stats_sums_.save_json("stats_sums.json");
+// }
 
 // //////////////////////////////////////////////////////////////////
 // instatiate templates
