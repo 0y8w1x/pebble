@@ -451,7 +451,7 @@ void NfrMapper::computeRollPitch(double& roll_pitch_error) {
     roll_pitch_error += res.transpose() * rpf.cov_inv * res;
   }
 }
-
+/*
 void NfrMapper::detect_keypoints() {
   std::vector<int64_t> keys;
   for (const auto& kv : img_data) {
@@ -551,7 +551,7 @@ void NfrMapper::match_stereo() {
             << num_inliers << " inlier matches (" << num_matches << " total)."
             << std::endl;
 }
-/*
+
 void NfrMapper::match_all() {
   std::vector<TimeCamId> keys;
   std::unordered_map<TimeCamId, size_t> id_to_key_idx;

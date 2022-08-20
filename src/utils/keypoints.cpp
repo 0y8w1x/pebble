@@ -52,9 +52,9 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 namespace basalt {
 
 // const int PATCH_SIZE = 31;
-const int HALF_PATCH_SIZE = 15;
+// const int HALF_PATCH_SIZE = 15;
 const int EDGE_THRESHOLD = 19;
-
+/*
 const static char pattern_31_x_a[256] = {
     8,   4,   -11, 7,   2,   1,   -2,  -13, -13, 10,  -13, -11, 7,   -4,  -13,
     -9,  12,  -3,  -6,  11,  4,   5,   3,   -8,  -2,  -13, -7,  -4,  -10, 5,
@@ -157,7 +157,7 @@ void detectKeypointsMapping(const basalt::Image<const uint16_t>& img_raw,
     }
   }
 }
-
+*/
 void detectKeypoints(
     const basalt::Image<const uint16_t>& img_raw, KeypointsData& kd,
     int PATCH_SIZE, int num_points_cell,
@@ -248,7 +248,7 @@ void detectKeypoints(
   //    }
   //  }
 }
-
+/*
 void computeAngles(const basalt::Image<const uint16_t>& img_raw,
                    KeypointsData& kd, bool rotate_features) {
   kd.corner_angles.resize(kd.corners.size());
@@ -358,7 +358,7 @@ void matchDescriptors(const std::vector<std::bitset<256>>& corner_descriptors_1,
     }
   }
 }
-/*
+
 void findInliersRansac(const KeypointsData& kd1, const KeypointsData& kd2,
                        const double ransac_thresh, const int ransac_min_inliers,
                        MatchData& md) {
